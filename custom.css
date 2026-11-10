@@ -1,150 +1,152 @@
 /* ============================================================
-   INCREMENTAL v2.0.3 - CORREÇÃO LAYOUT + MENU + CONTRASTE
-   Corrige sobreposição, espaço direito, menu distinto,
-   Dashboard clarinho. Mantém v2.0.2: sem painel gigante
+   INCREMENTAL v2.1.0 - NOVA ESTÉTICA BASEADA NO EXEMPLO
+   Sidebar rosa claro, header pill, cronômetro destaque,
+   cards brancos suaves, fonte arredondada.
+   Tudo visual - não mexe em dados nem funções.
    ============================================================ */
 
+/* FONTE - igual do exemplo: arredondada, moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root{
-  --sidebar-w: 268px;
-  --card-pad: 28px;
-  --card-gap: 20px;
-  --radius: 22px;
-  --font-base: 16px;
-  --font-menu: 16.5px;
-  --font-title: 28px;
-  --font-card-title: 18px;
+  --sidebar-w: 242px;
+  --card-pad: 24px;
+  --card-gap: 18px;
+  --radius: 20px;
+  --radius-lg: 24px;
+  --font-base: 15px;
+  --font-menu: 14.5px;
+  --font-title: 26px;
+  --pink: #fdf2f5;
+  --pink-strong: #fbe9ee;
 }
 
-/* FUNDO GLOBAL - pastel presente */
+*{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* FUNDO - igual do exemplo: rosa claro esquerda, azul claro direita */
 body{
-  font-size: var(--font-base) !important;
-  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 20%, #fce7f3 45%, #ddd6fe 70%, #bfdbfe 100%) !important;
+  background: linear-gradient(90deg, #fdeef1 0%, #fdf2f5 28%, #eef2ff 68%, #dbeafe 100%) !important;
   background-attachment: fixed !important;
   margin:0 !important; padding:0 !important;
   overflow-x:hidden !important;
-  box-sizing:border-box !important;
+  font-size: var(--font-base) !important;
+  color:#1a1a1a !important;
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
-    radial-gradient(650px 420px at 12% 8%, rgba(255,107,157,0.38), transparent 65%),
-    radial-gradient(720px 520px at 88% 12%, rgba(79,172,254,0.40), transparent 65%),
-    radial-gradient(620px 520px at 50% 95%, rgba(161,140,209,0.36), transparent 65%);
-  filter: blur(2px);
+    radial-gradient(600px 400px at 8% 20%, rgba(255,180,200,0.35), transparent 60%),
+    radial-gradient(600px 400px at 92% 25%, rgba(180,200,255,0.45), transparent 60%),
+    radial-gradient(500px 400px at 50% 95%, rgba(220,200,255,0.25), transparent 60%);
 }
 
-/* LAYOUT - resolve sobreposição e espaço direito */
+/* LAYOUT */
 #app, .app, body > div:first-of-type{
-  display:flex !important;
-  width:100% !important;
-  max-width:100% !important;
-  box-sizing:border-box !important;
-  position:relative; z-index:1;
+  display:flex !important; width:100% !important; max-width:100% !important;
+  position:relative; z-index:1; box-sizing:border-box !important;
 }
-
-/* ÁREA PRINCIPAL TRANSPARENTE, sem painel gigante */
 main, .main, [class*="main"], .content{
-  flex:1 !important;
-  width:auto !important;
-  max-width:none !important;
-  min-width:0 !important;
-  margin-left:0 !important;
-  margin-right:0 !important;
-  padding: 24px 28px 24px 28px !important;
-  background: transparent !important;
-  backdrop-filter:none !important;
-  border:none !important;
-  box-shadow:none !important;
-  border-radius:0 !important;
-  box-sizing:border-box !important;
-  overflow:hidden !important;
-}
-
-/* GRADE DOS CARDS - proporcional, sem sobra direita */
-main > div, .content > div{
-  width:100% !important;
-  max-width:100% !important;
+  flex:1 !important; min-width:0 !important; max-width:none !important;
+  padding: 18px 22px 18px 22px !important;
+  background: transparent !important; border:none !important; box-shadow:none !important; border-radius:0 !important;
   box-sizing:border-box !important;
 }
-/* Força grid 2 colunas equilibrado onde houver cards */
-div[style*="grid"], div[style*="Grid"]{
-  display:grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: var(--card-gap) !important;
-  width:100% !important;
-  max-width:100% !important;
-}
 
-/* MENU LATERAL - cor diferente, menos glass, mais definido */
+/* MENU LATERAL - igual exemplo: rosa clarinho, ícones pequenos, letra escura */
 aside, .sidebar, nav[class*="sidebar"], [class*="Sidebar"]{
-  width: var(--sidebar-w) !important;
-  min-width: var(--sidebar-w) !important;
-  max-width: var(--sidebar-w) !important;
-  flex-shrink:0 !important;
-  position:sticky !important;
-  top:0 !important;
-  height:100vh !important;
-  /* Cor distinta: branco quase sólido, não vidro igual aos cards */
-  background: rgba(255,255,255,0.88) !important;
-  backdrop-filter: blur(12px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
-  border-right: 1px solid rgba(0,0,0,0.06) !important;
-  box-shadow: 4px 0 20px rgba(0,0,0,0.04) !important;
-  padding: 20px 14px !important;
-  box-sizing:border-box !important;
-  z-index:10 !important;
+  width: var(--sidebar-w) !important; min-width: var(--sidebar-w) !important; max-width: var(--sidebar-w) !important;
+  flex-shrink:0 !important; position:sticky !important; top:0 !important; height:100vh !important;
+  background: rgba(253, 242, 245, 0.96) !important;
+  backdrop-filter: blur(10px) !important;
+  border-right: 1px solid rgba(255,255,255,0.8) !important;
+  box-shadow: none !important;
+  padding: 16px 12px !important; box-sizing:border-box !important; z-index:10 !important;
 }
+/* Logo / topo do menu */
+aside > div:first-child, .sidebar > div:first-child{
+  padding: 4px 8px 16px 8px !important;
+}
+/* Itens do menu - igual exemplo */
 aside a, aside button, .sidebar a, .sidebar button, nav a{
-  font-size: var(--font-menu) !important;
-  font-weight:500 !important;
-  padding:12px 14px !important;
-  margin-bottom:6px !important;
-  border-radius:14px !important;
-  color:#1d1d1f !important;
-  line-height:1.4 !important;
-  display:flex !important;
-  align-items:center !important;
-  gap:10px !important;
-  box-sizing:border-box !important;
+  font-size: var(--font-menu) !important; font-weight:500 !important;
+  color:#2a2a2a !important; padding:10px 12px !important; margin-bottom:4px !important;
+  border-radius:12px !important; display:flex !important; align-items:center !important; gap:10px !important;
+  line-height:1.4 !important; box-sizing:border-box !important;
 }
-/* Dashboard ativo - contraste forte, não clarinho */
-aside a[aria-current="true"], aside a.active, aside .active, .sidebar a.active,
-aside a:first-child, aside button:first-of-type{
-  background: rgba(79,172,254,0.18) !important;
-  color:#0a0a0c !important;
-  font-weight:600 !important;
+/* ÍCONES do menu - menores, como no exemplo */
+aside a svg, aside button svg, .sidebar svg, aside i, .sidebar i{
+  width:18px !important; height:18px !important; font-size:16px !important; flex-shrink:0 !important; opacity:0.85 !important;
 }
-aside a:hover{ background: rgba(0,0,0,0.05) !important; color:#0a0a0c !important; }
+/* Item ativo - Dashboard com fundo rosado suave */
+aside a[aria-current="true"], aside a.active, .sidebar a.active, aside a:first-child{
+  background: rgba(255,255,255,0.75) !important; color:#111 !important; font-weight:600 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+}
+aside a:hover{ background: rgba(255,255,255,0.60) !important; color:#111 !important; }
 
-/* CARDS - vidro moderado 0.48, bem definidos */
+/* HEADER SUPERIOR - pill branco como no exemplo */
+main > div:first-child, .content > div:first-child{
+  background: rgba(255,255,255,0.72) !important;
+  backdrop-filter: blur(14px) !important;
+  border:1px solid rgba(255,255,255,0.8) !important;
+  border-radius: 16px !important;
+  padding: 10px 16px !important;
+  margin-bottom: 18px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04) !important;
+}
+
+/* CARDS - igual exemplo: branco suave, sombra leve, borda fina */
 .card, [class*="card"], [class*="Card"], .panel, section{
-  background: rgba(255,255,255,0.48) !important;
-  backdrop-filter: blur(20px) saturate(175%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(175%) !important;
-  border:1px solid rgba(255,255,255,0.70) !important;
+  background: rgba(255,255,255,0.82) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255,255,255,0.9) !important;
   border-radius: var(--radius) !important;
-  box-shadow: 0 10px 32px rgba(31,38,135,0.10), inset 0 1px 0 rgba(255,255,255,0.75) !important;
-  padding: var(--card-pad) !important;
-  box-sizing:border-box !important;
-  min-width:0 !important;
-  overflow:hidden !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05) !important;
+  padding: var(--card-pad) !important; box-sizing:border-box !important; min-width:0 !important;
+}
+/* Card do cronômetro - destaque maior, gradiente rosa-azul como exemplo */
+.card:first-child, [class*="card"]:first-child{
+  background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,240,245,0.92) 45%, rgba(235,242,255,0.92) 100%) !important;
+  padding: 30px 24px !important;
 }
 
-/* Textos - contraste AAA, sem clarinho */
-h1{ font-size: var(--font-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
-h2, h3{ font-size: var(--font-card-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
-p, span, div, li, td, label{ color:#1d1d1f !important; opacity:1 !important; }
-.text-muted, small{ color:#3a3a3c !important; }
+/* GRADE - 2 colunas proporcionais */
+div[style*="grid"], div[style*="Grid"]{
+  display:grid !important; grid-template-columns: 1fr 1fr !important;
+  gap: var(--card-gap) !important; width:100% !important; max-width:100% !important;
+}
 
-/* Cronômetro */
-[class*="Cronometro"], [class*="cronometro"]{ font-size:52px !important; font-weight:600 !important; color:#1d1d1f !important; }
+/* TEXTOS - igual exemplo */
+h1{ font-size: var(--font-title) !important; font-weight:700 !important; color:#111 !important; }
+h2, h3{ font-size: 16px !important; font-weight:600 !important; color:#111 !important; }
+p, span, div, li, td, label{ color:#1a1a1a !important; opacity:1 !important; }
+.text-muted, small{ color:#6b6b6b !important; }
 
-/* Botões e inputs */
-button, .btn{ padding:12px 20px !important; font-size:15.5px !important; font-weight:500 !important; border-radius:14px !important; }
-input, select, textarea{ padding:12px 14px !important; font-size:15.5px !important; background: rgba(255,255,255,0.85) !important; color:#1d1d1f !important; border-radius:12px !important; }
+/* CRONÔMETRO - grande, bold, igual exemplo */
+[class*="Cronometro"], [class*="cronometro"]{
+  font-size: 62px !important; font-weight:700 !important; color:#111 !important;
+  letter-spacing:-0.04em !important; line-height:1 !important;
+}
+
+/* BOTÕES - pill azul como exemplo */
+button, .btn{
+  padding:10px 20px !important; font-size:14px !important; font-weight:600 !important;
+  border-radius:999px !important; background:#1a73e8 !important; color:#fff !important; border:none !important;
+  box-shadow: 0 4px 14px rgba(26,115,232,0.28) !important;
+}
+input, select, textarea{
+  padding:10px 14px !important; font-size:14px !important;
+  background: rgba(255,255,255,0.9) !important; color:#111 !important;
+  border:1px solid rgba(0,0,0,0.07) !important; border-radius:12px !important;
+}
 
 @media (max-width: 900px){
-  :root{ --sidebar-w: 220px; --card-pad: 20px; }
-  main{ padding:16px !important; }
+  :root{ --sidebar-w: 210px; --card-pad: 18px; }
+  main{ padding:12px !important; }
   div[style*="grid"]{ grid-template-columns: 1fr !important; }
+  [class*="Cronometro"]{ font-size:48px !important; }
 }
