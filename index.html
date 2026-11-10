@@ -26,7 +26,7 @@ canvas{width:100%;height:140px}.pill{display:inline-block;padding:3px 9px;border
 <script>
   const SUPABASE_URL = "https://ppqtlueyptyfwmqqylbz.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.[STRIPPED 127 bytes].i0vDaMQWc9-KKsUOj1UN-_DQYh4MbYtNwrx_UN6FmJk";
-  window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+try { window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) { console.log("Supabase offline", e); window.supabaseClient = null; }
 </script></head><body>
 <div id="app"><aside><div class="logo">✦ <span>Central de Estudos</span></div><div class="nav" id="nav"></div><div style="padding:10px"><button onclick="toggleMenu()">⇋ <span>Recolher</span></button><div class="small mut" style="margin-top:10px"><span id="syncSt">● Sincronizado</span><br>Versão 2.0.0 • Esquema 1</div></div></aside>
 <main><div class="top"><div><h1 id="title">Dashboard</h1><div class="mut small" id="greet"></div></div><div><button onclick="openModal('studyModal')">Registrar estudo</button> <button onclick="show('config')">⚙ Configurações</button></div></div><div id="view"></div></main></div>
