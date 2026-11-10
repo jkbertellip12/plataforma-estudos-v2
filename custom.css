@@ -1,10 +1,9 @@
 /* ============================================================
-   INCREMENTAL v2.0.2 - CORREÇÃO COMPOSIÇÃO LIQUID GLASS
-   Remove superfície intermediária, fundo mais presente,
-   cards com vidro moderado. Mantém proporcionalidade v2.0.1
+   INCREMENTAL v2.0.3 - CORREÇÃO LAYOUT + MENU + CONTRASTE
+   Corrige sobreposição, espaço direito, menu distinto,
+   Dashboard clarinho. Mantém v2.0.2: sem painel gigante
    ============================================================ */
 
-/* 1. PROPORCIONALIDADE PRESERVADA v2.0.1 */
 :root{
   --sidebar-w: 268px;
   --card-pad: 28px;
@@ -16,74 +15,122 @@
   --font-card-title: 18px;
 }
 
-/* 2. FUNDO GLOBAL - pastel um pouco mais intenso, visível */
+/* FUNDO GLOBAL - pastel presente */
 body{
   font-size: var(--font-base) !important;
   background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 20%, #fce7f3 45%, #ddd6fe 70%, #bfdbfe 100%) !important;
   background-attachment: fixed !important;
+  margin:0 !important; padding:0 !important;
+  overflow-x:hidden !important;
+  box-sizing:border-box !important;
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
     radial-gradient(650px 420px at 12% 8%, rgba(255,107,157,0.38), transparent 65%),
     radial-gradient(720px 520px at 88% 12%, rgba(79,172,254,0.40), transparent 65%),
-    radial-gradient(620px 520px at 50% 95%, rgba(161,140,209,0.36), transparent 65%),
-    radial-gradient(500px 400px at 70% 60%, rgba(253,224,171,0.30), transparent 65%);
+    radial-gradient(620px 520px at 50% 95%, rgba(161,140,209,0.36), transparent 65%);
   filter: blur(2px);
 }
 
-/* 3. ELIMINAR SUPERFÍCIE INTERMEDIÁRIA - área principal TRANSPARENTE */
-main, .main, [class*="main"], .content, #app, .container, .app-container, .layout{
-  background: transparent !important;
-  background-color: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-}
-/* Garante que nenhum wrapper gigante vire card */
-div[class*="wrapper"], div[class*="Container"]{
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
+/* LAYOUT - resolve sobreposição e espaço direito */
+#app, .app, body > div:first-of-type{
+  display:flex !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  position:relative; z-index:1;
 }
 
-/* 4. CARDS INDIVIDUAIS - Liquid Glass moderado, mais transparentes que v2.0.1 mas definidos */
+/* ÁREA PRINCIPAL TRANSPARENTE, sem painel gigante */
+main, .main, [class*="main"], .content{
+  flex:1 !important;
+  width:auto !important;
+  max-width:none !important;
+  min-width:0 !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding: 24px 28px 24px 28px !important;
+  background: transparent !important;
+  backdrop-filter:none !important;
+  border:none !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}
+
+/* GRADE DOS CARDS - proporcional, sem sobra direita */
+main > div, .content > div{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+/* Força grid 2 colunas equilibrado onde houver cards */
+div[style*="grid"], div[style*="Grid"]{
+  display:grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: var(--card-gap) !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+
+/* MENU LATERAL - cor diferente, menos glass, mais definido */
+aside, .sidebar, nav[class*="sidebar"], [class*="Sidebar"]{
+  width: var(--sidebar-w) !important;
+  min-width: var(--sidebar-w) !important;
+  max-width: var(--sidebar-w) !important;
+  flex-shrink:0 !important;
+  position:sticky !important;
+  top:0 !important;
+  height:100vh !important;
+  /* Cor distinta: branco quase sólido, não vidro igual aos cards */
+  background: rgba(255,255,255,0.88) !important;
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+  border-right: 1px solid rgba(0,0,0,0.06) !important;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.04) !important;
+  padding: 20px 14px !important;
+  box-sizing:border-box !important;
+  z-index:10 !important;
+}
+aside a, aside button, .sidebar a, .sidebar button, nav a{
+  font-size: var(--font-menu) !important;
+  font-weight:500 !important;
+  padding:12px 14px !important;
+  margin-bottom:6px !important;
+  border-radius:14px !important;
+  color:#1d1d1f !important;
+  line-height:1.4 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  box-sizing:border-box !important;
+}
+/* Dashboard ativo - contraste forte, não clarinho */
+aside a[aria-current="true"], aside a.active, aside .active, .sidebar a.active,
+aside a:first-child, aside button:first-of-type{
+  background: rgba(79,172,254,0.18) !important;
+  color:#0a0a0c !important;
+  font-weight:600 !important;
+}
+aside a:hover{ background: rgba(0,0,0,0.05) !important; color:#0a0a0c !important; }
+
+/* CARDS - vidro moderado 0.48, bem definidos */
 .card, [class*="card"], [class*="Card"], .panel, section{
   background: rgba(255,255,255,0.48) !important;
   backdrop-filter: blur(20px) saturate(175%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(175%) !important;
-  border: 1px solid rgba(255,255,255,0.70) !important;
+  border:1px solid rgba(255,255,255,0.70) !important;
   border-radius: var(--radius) !important;
   box-shadow: 0 10px 32px rgba(31,38,135,0.10), inset 0 1px 0 rgba(255,255,255,0.75) !important;
   padding: var(--card-pad) !important;
-  gap: var(--card-gap) !important;
+  box-sizing:border-box !important;
+  min-width:0 !important;
+  overflow:hidden !important;
 }
 
-/* Menu lateral - mesma identidade, sem superfície sólida desconectada */
-aside, .sidebar, nav[class*="sidebar"], [class*="Sidebar"]{
-  width: var(--sidebar-w) !important;
-  min-width: var(--sidebar-w) !important;
-  background: rgba(255,255,255,0.52) !important;
-  backdrop-filter: blur(20px) saturate(175%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(175%) !important;
-  border-right: 1px solid rgba(255,255,255,0.70) !important;
-  box-shadow: 4px 0 28px rgba(0,0,0,0.06) !important;
-  padding: 20px 14px !important;
-}
-aside a, aside button, .sidebar a, .sidebar button, nav a{
-  font-size: var(--font-menu) !important;
-  font-weight: 500 !important;
-  padding: 12px 14px !important;
-  margin-bottom: 6px !important;
-  border-radius: 14px !important;
-  color: #1d1d1f !important;
-  line-height: 1.4 !important;
-}
-
-/* Textos - contraste mantido */
+/* Textos - contraste AAA, sem clarinho */
 h1{ font-size: var(--font-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
 h2, h3{ font-size: var(--font-card-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
 p, span, div, li, td, label{ color:#1d1d1f !important; opacity:1 !important; }
@@ -98,4 +145,6 @@ input, select, textarea{ padding:12px 14px !important; font-size:15.5px !importa
 
 @media (max-width: 900px){
   :root{ --sidebar-w: 220px; --card-pad: 20px; }
+  main{ padding:16px !important; }
+  div[style*="grid"]{ grid-template-columns: 1fr !important; }
 }
