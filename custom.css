@@ -1,58 +1,76 @@
-
 /* ============================================================
-   INCREMENTAL v3.1.0 - REFORMULAÇÃO GLOBAL LIQUID GLASS 50%
-   Aplica por cima do index.html existente. NÃO apaga dados.
-   Transparência moderada: 50% da intensidade de um Liquid Glass extremo
+   INCREMENTAL v2.0.2 - CORREÇÃO COMPOSIÇÃO LIQUID GLASS
+   Remove superfície intermediária, fundo mais presente,
+   cards com vidro moderado. Mantém proporcionalidade v2.0.1
    ============================================================ */
 
-/* 1. PROPORCIONALIDADE GLOBAL - escala maior, sem ser exagerada */
+/* 1. PROPORCIONALIDADE PRESERVADA v2.0.1 */
 :root{
   --sidebar-w: 268px;
   --card-pad: 28px;
   --card-gap: 20px;
   --radius: 22px;
-  --radius-sm: 16px;
   --font-base: 16px;
   --font-menu: 16.5px;
   --font-title: 28px;
   --font-card-title: 18px;
 }
 
-/* 2. CAMADA EXTERNA - fundo atmosférico suave */
+/* 2. FUNDO GLOBAL - pastel um pouco mais intenso, visível */
 body{
   font-size: var(--font-base) !important;
-  background: linear-gradient(135deg, #e8eaf6 0%, #dbeafe 25%, #e0e7ff 50%, #fce7f3 75%, #e8eaf6 100%) !important;
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 20%, #fce7f3 45%, #ddd6fe 70%, #bfdbfe 100%) !important;
   background-attachment: fixed !important;
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
-    radial-gradient(600px 400px at 15% 10%, rgba(255,107,157,0.28), transparent 65%),
-    radial-gradient(700px 500px at 85% 15%, rgba(79,172,254,0.30), transparent 65%),
-    radial-gradient(600px 500px at 50% 90%, rgba(161,140,209,0.26), transparent 65%);
+    radial-gradient(650px 420px at 12% 8%, rgba(255,107,157,0.38), transparent 65%),
+    radial-gradient(720px 520px at 88% 12%, rgba(79,172,254,0.40), transparent 65%),
+    radial-gradient(620px 520px at 50% 95%, rgba(161,140,209,0.36), transparent 65%),
+    radial-gradient(500px 400px at 70% 60%, rgba(253,224,171,0.30), transparent 65%);
   filter: blur(2px);
 }
 
-/* 3. CAMADA INTERMEDIÁRIA - superfície principal vidro fosco 50% */
-main, .main, [class*="main"], .content, #app{
-  position:relative; z-index:1;
-  background: rgba(255,255,255,0.62) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255,255,255,0.65) !important;
-  border-radius: 28px !important;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+/* 3. ELIMINAR SUPERFÍCIE INTERMEDIÁRIA - área principal TRANSPARENTE */
+main, .main, [class*="main"], .content, #app, .container, .app-container, .layout{
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+/* Garante que nenhum wrapper gigante vire card */
+div[class*="wrapper"], div[class*="Container"]{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-/* Menu lateral - vidro 50% */
+/* 4. CARDS INDIVIDUAIS - Liquid Glass moderado, mais transparentes que v2.0.1 mas definidos */
+.card, [class*="card"], [class*="Card"], .panel, section{
+  background: rgba(255,255,255,0.48) !important;
+  backdrop-filter: blur(20px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(175%) !important;
+  border: 1px solid rgba(255,255,255,0.70) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 10px 32px rgba(31,38,135,0.10), inset 0 1px 0 rgba(255,255,255,0.75) !important;
+  padding: var(--card-pad) !important;
+  gap: var(--card-gap) !important;
+}
+
+/* Menu lateral - mesma identidade, sem superfície sólida desconectada */
 aside, .sidebar, nav[class*="sidebar"], [class*="Sidebar"]{
   width: var(--sidebar-w) !important;
   min-width: var(--sidebar-w) !important;
-  background: rgba(255,255,255,0.68) !important;
-  backdrop-filter: blur(22px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
-  border-right: 1px solid rgba(255,255,255,0.65) !important;
-  box-shadow: 4px 0 24px rgba(0,0,0,0.05) !important;
+  background: rgba(255,255,255,0.52) !important;
+  backdrop-filter: blur(20px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(175%) !important;
+  border-right: 1px solid rgba(255,255,255,0.70) !important;
+  box-shadow: 4px 0 28px rgba(0,0,0,0.06) !important;
   padding: 20px 14px !important;
 }
 aside a, aside button, .sidebar a, .sidebar button, nav a{
@@ -64,35 +82,20 @@ aside a, aside button, .sidebar a, .sidebar button, nav a{
   color: #1d1d1f !important;
   line-height: 1.4 !important;
 }
-aside a:hover, .sidebar a:hover{ background: rgba(255,255,255,0.65) !important; }
 
-/* 4. CAMADA INTERNA - cards vidro diferenciado 50% */
-.card, [class*="card"], [class*="Card"], .panel, section{
-  background: rgba(255,255,255,0.58) !important;
-  backdrop-filter: blur(18px) saturate(170%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
-  border: 1px solid rgba(255,255,255,0.62) !important;
-  border-radius: var(--radius) !important;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.65) !important;
-  padding: var(--card-pad) !important;
-  gap: var(--card-gap) !important;
-}
+/* Textos - contraste mantido */
+h1{ font-size: var(--font-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
+h2, h3{ font-size: var(--font-card-title) !important; font-weight:600 !important; color:#1d1d1f !important; }
+p, span, div, li, td, label{ color:#1d1d1f !important; opacity:1 !important; }
+.text-muted, small{ color:#3a3a3c !important; }
 
-/* Títulos e textos - contraste AAA */
-h1{ font-size: var(--font-title) !important; font-weight: 600 !important; color:#1d1d1f !important; letter-spacing:-0.02em !important; }
-h2, h3{ font-size: var(--font-card-title) !important; font-weight: 600 !important; color:#1d1d1f !important; }
-p, span, div, li, td, label{ color:#1d1d1f !important; opacity:1 !important; text-shadow:none !important; }
-.text-muted, .text-secondary, small{ color:#3a3a3c !important; opacity:1 !important; font-weight:400 !important; }
-
-/* Cronômetro - proporcional */
-[class*="Cronometro"], [class*="cronometro"]{ font-size: 52px !important; font-weight:600 !important; color:#1d1d1f !important; letter-spacing:-0.03em !important; }
+/* Cronômetro */
+[class*="Cronometro"], [class*="cronometro"]{ font-size:52px !important; font-weight:600 !important; color:#1d1d1f !important; }
 
 /* Botões e inputs */
-button, .btn{ padding: 12px 20px !important; font-size:15.5px !important; font-weight:500 !important; border-radius:14px !important; }
-input, select, textarea{ padding: 12px 14px !important; font-size:15.5px !important; background: rgba(255,255,255,0.85) !important; border:1px solid rgba(0,0,0,0.08) !important; color:#1d1d1f !important; border-radius:12px !important; }
+button, .btn{ padding:12px 20px !important; font-size:15.5px !important; font-weight:500 !important; border-radius:14px !important; }
+input, select, textarea{ padding:12px 14px !important; font-size:15.5px !important; background: rgba(255,255,255,0.85) !important; color:#1d1d1f !important; border-radius:12px !important; }
 
-/* Responsivo */
 @media (max-width: 900px){
   :root{ --sidebar-w: 220px; --card-pad: 20px; }
-  main{ border-radius: 20px !important; }
 }
