@@ -49,7 +49,7 @@ if (window.supabaseClient) {
     user_id: '00000000-0000-0000-0000-000000000001',
     data: allData
   }).then(r => console.log("Enviado pra Supabase", r));
-}}$('#syncSt').textContent = navigator.onLine?'● Sincronizado':'○ Pendente — offline, salvo localmente'; }
+}}$('#syncSt').textContent = navigator.onLine?'● Sincronizado':'○ Pendente — offline, salvo localmente'; 
 window.addEventListener('online',queueSync);window.addEventListener('offline',queueSync);
 const activeEdital=()=>S.editais.find(e=>e.status==='ativo');
 const fmt=s=>{s=Math.max(0,Math.floor(s));return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
