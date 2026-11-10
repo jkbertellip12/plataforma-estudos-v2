@@ -37,7 +37,7 @@ try { window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABAS
 <script>
 const $=s=>document.querySelector(s); const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
 let S=JSON.parse(localStorage.getItem('central_v2')||'null')||{editais:[],studies:[],revisions:[],events:[],sims:[],quests:[],fcSubjects:[],flashcards:[],fcSessions:[],habits:[],habitMarks:{},profile:{display:'Estudante',full:'',gender:''},theme:'padrao',iface:{font:100,density:'normal',radius:16},dashHidden:[],intervals:[1,3,7,14],backups:[],autoBackup:true,lastBackup:null,versions:[{v:'2.0.0',name:'Estrutura inicial',date:new Date().toISOString(),summary:'Sistema completo v2.0.0 — todos os módulos.'}]};
- save(){localStorage.setItem('central_v2',JSON.stringify(S));render();queueSync()}
+function save(){localStorage.setItem('central_v2',JSON.stringify(S));render();queueSync()}
 function queueSync(){ // Manda pra Supabase
 if (window.supabaseClient) {
   const allData = {};
