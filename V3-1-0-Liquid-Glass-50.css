@@ -1,0 +1,98 @@
+
+/* ============================================================
+   INCREMENTAL v3.1.0 - REFORMULAÇÃO GLOBAL LIQUID GLASS 50%
+   Aplica por cima do index.html existente. NÃO apaga dados.
+   Transparência moderada: 50% da intensidade de um Liquid Glass extremo
+   ============================================================ */
+
+/* 1. PROPORCIONALIDADE GLOBAL - escala maior, sem ser exagerada */
+:root{
+  --sidebar-w: 268px;
+  --card-pad: 28px;
+  --card-gap: 20px;
+  --radius: 22px;
+  --radius-sm: 16px;
+  --font-base: 16px;
+  --font-menu: 16.5px;
+  --font-title: 28px;
+  --font-card-title: 18px;
+}
+
+/* 2. CAMADA EXTERNA - fundo atmosférico suave */
+body{
+  font-size: var(--font-base) !important;
+  background: linear-gradient(135deg, #e8eaf6 0%, #dbeafe 25%, #e0e7ff 50%, #fce7f3 75%, #e8eaf6 100%) !important;
+  background-attachment: fixed !important;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(600px 400px at 15% 10%, rgba(255,107,157,0.28), transparent 65%),
+    radial-gradient(700px 500px at 85% 15%, rgba(79,172,254,0.30), transparent 65%),
+    radial-gradient(600px 500px at 50% 90%, rgba(161,140,209,0.26), transparent 65%);
+  filter: blur(2px);
+}
+
+/* 3. CAMADA INTERMEDIÁRIA - superfície principal vidro fosco 50% */
+main, .main, [class*="main"], .content, #app{
+  position:relative; z-index:1;
+  background: rgba(255,255,255,0.62) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255,255,255,0.65) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+
+/* Menu lateral - vidro 50% */
+aside, .sidebar, nav[class*="sidebar"], [class*="Sidebar"]{
+  width: var(--sidebar-w) !important;
+  min-width: var(--sidebar-w) !important;
+  background: rgba(255,255,255,0.68) !important;
+  backdrop-filter: blur(22px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+  border-right: 1px solid rgba(255,255,255,0.65) !important;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.05) !important;
+  padding: 20px 14px !important;
+}
+aside a, aside button, .sidebar a, .sidebar button, nav a{
+  font-size: var(--font-menu) !important;
+  font-weight: 500 !important;
+  padding: 12px 14px !important;
+  margin-bottom: 6px !important;
+  border-radius: 14px !important;
+  color: #1d1d1f !important;
+  line-height: 1.4 !important;
+}
+aside a:hover, .sidebar a:hover{ background: rgba(255,255,255,0.65) !important; }
+
+/* 4. CAMADA INTERNA - cards vidro diferenciado 50% */
+.card, [class*="card"], [class*="Card"], .panel, section{
+  background: rgba(255,255,255,0.58) !important;
+  backdrop-filter: blur(18px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
+  border: 1px solid rgba(255,255,255,0.62) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.65) !important;
+  padding: var(--card-pad) !important;
+  gap: var(--card-gap) !important;
+}
+
+/* Títulos e textos - contraste AAA */
+h1{ font-size: var(--font-title) !important; font-weight: 600 !important; color:#1d1d1f !important; letter-spacing:-0.02em !important; }
+h2, h3{ font-size: var(--font-card-title) !important; font-weight: 600 !important; color:#1d1d1f !important; }
+p, span, div, li, td, label{ color:#1d1d1f !important; opacity:1 !important; text-shadow:none !important; }
+.text-muted, .text-secondary, small{ color:#3a3a3c !important; opacity:1 !important; font-weight:400 !important; }
+
+/* Cronômetro - proporcional */
+[class*="Cronometro"], [class*="cronometro"]{ font-size: 52px !important; font-weight:600 !important; color:#1d1d1f !important; letter-spacing:-0.03em !important; }
+
+/* Botões e inputs */
+button, .btn{ padding: 12px 20px !important; font-size:15.5px !important; font-weight:500 !important; border-radius:14px !important; }
+input, select, textarea{ padding: 12px 14px !important; font-size:15.5px !important; background: rgba(255,255,255,0.85) !important; border:1px solid rgba(0,0,0,0.08) !important; color:#1d1d1f !important; border-radius:12px !important; }
+
+/* Responsivo */
+@media (max-width: 900px){
+  :root{ --sidebar-w: 220px; --card-pad: 20px; }
+  main{ border-radius: 20px !important; }
+}
