@@ -37,19 +37,8 @@ canvas{width:100%;height:140px}.pill{display:inline-block;padding:3px 9px;border
 <script>
 const $=s=>document.querySelector(s); const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
 let S=JSON.parse(localStorage.getItem('central_v2')||'null')||{editais:[],studies:[],revisions:[],events:[],sims:[],quests:[],fcSubjects:[],flashcards:[],fcSessions:[],habits:[],habitMarks:{},profile:{display:'Estudante',full:'',gender:''},theme:'padrao',iface:{font:100,density:'normal',radius:16},dashHidden:[],intervals:[1,3,7,14],backups:[],autoBackup:true,lastBackup:null,versions:[{v:'2.0.0',name:'Estrutura inicial',date:new Date().toISOString(),summary:'Sistema completo v2.0.0 — todos os módulos.'}]};
- save(){localStorage.setItem('central_v2',JSON.stringify(S));render();queueSync()}
-function queueSync(){ // Manda pra Supabase
-if (window.supabaseClient) {
-  const allData = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const k = localStorage.key(i);
-    allData[k] = localStorage.getItem(k);
-  }
-  window.supabaseClient.from('user_data').upsert({
-    user_id: '00000000-0000-0000-0000-000000000001',
-    data: allData
-  }).then(r => console.log("Enviado pra Supabase", r));
-}$('#syncSt').textContent = navigator.onLine?'● Sincronizado':'○ Pendente — offline, salvo localmente'; }
+function save(){localStorage.setItem('central_v2',JSON.stringify(S));render();queueSync()}
+function queueSync(){ $('#syncSt').textContent = navigator.onLine?'● Sincronizado':'○ Pendente — offline, salvo localmente'; }
 window.addEventListener('online',queueSync);window.addEventListener('offline',queueSync);
 const activeEdital=()=>S.editais.find(e=>e.status==='ativo');
 const fmt=s=>{s=Math.max(0,Math.floor(s));return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
